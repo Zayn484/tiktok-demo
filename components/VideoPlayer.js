@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, Alert, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -7,7 +7,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function VideoPlayer(props) {
-    
 	return (
 		<View style={styles.videoContainer}>
 			<Video
@@ -15,19 +14,20 @@ export default function VideoPlayer(props) {
 				rate={1.0}
 				volume={props.currentIndex === props.currentVisibleIndex ? 1.0 : 0.0}
 				isMuted={false}
-                status={true}
-                usePoster={true}
+				status={true}
+				usePoster={true}
 				resizeMode="cover"
 				shouldPlay={props.currentIndex === props.currentVisibleIndex}
 				isLooping={false}
 				style={{ width: windowWidth, height: windowHeight }}
 			/>
-            <TouchableHighlight onPress={props.showComments}>
+
 			<View style={styles.comment}>
-				<Icon name="comment" size={30} color="#fff" />
-				<Text style={{ marginLeft: 10, color: '#fff', fontWeight: 'bold' }}>Comments</Text>
+				<Icon name="comment" size={30} color="#fff" onPress={props.showComments} />
+				<TouchableHighlight onPress={props.showComments}>
+					<Text style={{ marginLeft: 10, color: '#fff', fontWeight: 'bold' }}>Comments</Text>
+				</TouchableHighlight>
 			</View>
-            </TouchableHighlight>
 		</View>
 	);
 }
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 	},
 	comment: {
 		position: 'absolute',
-		left: 0,
+		right: 0,
 		bottom: 0,
 		marginBottom: 30,
 		paddingHorizontal: 20,
